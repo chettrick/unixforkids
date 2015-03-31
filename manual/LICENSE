@@ -872,6 +872,7 @@
 .\"
 .\"     @(#)vi.1	8.51 (Berkeley) 10/10/96
 .\"
+/*	$OpenBSD: LICENSE,v 1.10 2003/07/21 16:21:12 millert Exp $	*/
 
 The following are the copyrights and redistribution conditions that apply
 to this copy of the Vi software.
@@ -1046,4 +1047,3 @@ to this copy of the Vi software.
 .\"
 .\"     @(#)compress.1	8.2 (Berkeley) 4/18/94
 .\"
-/*	$OpenBSD: LICENSE,v 1.10 2003/07/21 16:21:12 millert Exp $	*/
