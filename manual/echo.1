@@ -70,31 +70,3 @@ Do not print the trailing newline character.
 .Xr csh 1 ,
 .Xr ksh 1 ,
 .Xr printf 1
-.Sh STANDARDS
-The
-.Nm
-utility is compliant with the
-.St -p1003.1-2008
-specification.
-.Pp
-The flag
-.Op Fl n
-conflicts with the behaviour mandated by the
-X/Open System Interfaces option of the
-.St -p1003.1-2008
-specification,
-which says it should be treated as part of
-.Ar string .
-Additionally,
-.Nm
-does not support any of the backslash character sequences mandated by XSI.
-.Pp
-.Nm
-also exists as a built-in to
-.Xr csh 1
-and
-.Xr ksh 1 ,
-though with a different syntax.
-.Pp
-Where portability is paramount, use
-.Xr printf 1 .

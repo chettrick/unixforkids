@@ -148,38 +148,6 @@ open, displaying to the standard output anything appended to the file:
 .Xr cat 1 ,
 .Xr head 1 ,
 .Xr sed 1
-.Sh STANDARDS
-The
-.Nm
-utility is compliant with the
-.St -p1003.1-2008
-specification.
-.Pp
-The flags
-.Op Fl br
-are extensions to that specification.
-.Pp
-The historic command line syntax of
-.Nm
-is supported by this implementation.
-The only difference between this implementation and historic versions
-of
-.Nm tail ,
-once the command line syntax translation has been done, is that the
-.Fl b ,
-.Fl c
-and
-.Fl n
-options modify the
-.Fl r
-option, i.e.,
-.Ic -r -c 4
-displays the last 4 characters of the last line
-of the input, while the historic tail (using the historic syntax
-.Ic -4cr )
-would ignore the
-.Fl c
-option and display the last 4 lines of the input.
 .Sh HISTORY
 A
 .Nm

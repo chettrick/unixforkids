@@ -584,57 +584,6 @@ Display information on all system processes:
 .Xr iostat 8 ,
 .Xr pstat 8 ,
 .Xr vmstat 8
-.Sh STANDARDS
-The
-.Nm
-utility is compliant with the
-.St -p1003.1-2008
-specification,
-except that the flag
-.Op Fl G
-is unsupported and
-the flags
-.Op Fl ptU
-support only single arguments, not lists.
-.Pp
-The flags
-.Op Fl defglnu
-are marked by
-.St -p1003.1-2008
-as being an X/Open System Interfaces option.
-Of these,
-.Op Fl dfgn
-are not supported by this implementation of
-.Nm ;
-behaviour for the flags
-.Op Fl elu
-differs between this implementation and the
-X/Open System Interfaces option of
-.St -p1003.1-2008 .
-.Pp
-The flags
-.Op Fl CcHhjkLMmNOrSTvWwx
-are extensions to
-.St -p1003.1-2008 .
-.Pp
-Only the following keywords are recognised by
-.St -p1003.1-2008 :
-.Cm args ,
-.Cm comm ,
-.Cm etime ,
-.Cm group ,
-.Cm nice ,
-.Cm pcpu ,
-.Cm pgid ,
-.Cm pid ,
-.Cm ppid ,
-.Cm rgroup ,
-.Cm ruser ,
-.Cm time ,
-.Cm tty ,
-.Cm user ,
-and
-.Cm vsz .
 .Sh HISTORY
 A
 .Nm

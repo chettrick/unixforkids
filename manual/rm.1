@@ -140,33 +140,11 @@ $ rm ./-f
 .Xr unlink 2 ,
 .Xr fts 3 ,
 .Xr symlink 7
-.Sh STANDARDS
-The
-.Nm
-utility is compliant with the
-.St -p1003.1-2008
-specification.
-.Pp
-The flags
-.Op Fl dP
-are extensions to that specification.
 .Sh HISTORY
 An
 .Nm
 command appeared in
 .At v1 .
-.Pp
-The
-.Nm
-utility differs from historical implementations in that the
-.Fl f
-option only masks attempts to remove non-existent files instead of
-masking a large variety of errors.
-.Pp
-Also, historical
-.Bx
-implementations prompted on the standard output,
-not the standard error output.
 .Pp
 The interactive mode used to be a
 .Nm dsw
