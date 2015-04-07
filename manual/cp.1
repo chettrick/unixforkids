@@ -41,18 +41,12 @@
 .Nd copy files
 .Sh SYNOPSIS
 .Nm cp
-.Op Fl fip
-.Oo
-.Fl R
-.Op Fl H | L | P
-.Oc
+.Op Fl fi
+.Op Fl R
 .Ar source target
 .Nm cp
-.Op Fl fip
-.Oo
-.Fl R
-.Op Fl H | L | P
-.Oc
+.Op Fl fi
+.Op Fl R
 .Ar source ... directory
 .Sh DESCRIPTION
 In the first synopsis form, the
@@ -83,11 +77,6 @@ The
 option overrides any previous
 .Fl i
 options.
-.It Fl H
-If the
-.Fl R
-option is also specified, symbolic links on the command line are followed.
-Symbolic links encountered in the tree traversal are not followed.
 .It Fl i
 Write a prompt to the standard error output before copying a file
 that would overwrite an existing file.
@@ -99,31 +88,6 @@ The
 option overrides any previous
 .Fl f
 options.
-.It Fl L
-If the
-.Fl R
-option is also specified, all symbolic links are followed.
-.It Fl P
-If the
-.Fl R
-option is also specified, no symbolic links are followed.
-.It Fl p
-Preserve in the copy as many of the modification time, access time,
-file flags, file mode, user ID, and group ID as allowed by permissions.
-.Pp
-If the user ID and group ID cannot be preserved, no error message
-is displayed and the exit value is not altered.
-.Pp
-If the source file has its set-user-ID bit on and the user ID cannot
-be preserved, the set-user-ID bit is not preserved
-in the copy's permissions.
-If the source file has its set-group-ID bit on and the group ID cannot
-be preserved, the set-group-ID bit is not preserved
-in the copy's permissions.
-If the source file has both its set-user-ID and set-group-ID bits on,
-and either the user ID or group ID cannot be preserved, neither
-the set-user-ID nor set-group-ID bits are preserved in the copy's
-permissions.
 .It Fl R
 If
 .Ar source
@@ -131,25 +95,8 @@ designates a directory,
 .Nm
 copies the directory and the entire subtree connected at that point.
 Created directories have the same mode as the corresponding source
-directory, unmodified by the process's umask.
-.Pp
-This option also causes symbolic links to be copied, rather than
-followed, and
-special files to be created, rather than being copied as normal files.
-However,
-.Nm
-copies hard linked files as separate files.
-To preserve hard links,
-use a utility such as
-.Xr pax 1
-or
-.Xr tar 1
-instead.
+directory.
 .El
-.Pp
-For each destination file that already exists, its contents are
-overwritten if permissions allow, but its mode, user ID, and group
-ID are unchanged.
 .Pp
 In the second synopsis form,
 the destination specified by the
@@ -160,46 +107,7 @@ which is a directory and the
 .Fl R
 flag is specified.
 .Pp
-If the destination file does not exist, the mode of the source file is
-used as modified by the file mode creation mask
-.Pf ( Ic umask ,
-see
-.Xr csh 1 ) .
-If the source file has its set-user-ID bit on, that bit is removed
-unless both the source file and the destination file are owned by the
-same user.
-If the source file has its set-group-ID bit on, that bit is removed
-unless both the source file and the destination file are in the same
-group and the user is a member of that group.
-If both the set-user-ID and set-group-ID bits are set, all of the above
-conditions must be fulfilled or both bits are removed.
-.Pp
 Appropriate permissions are required for file creation or overwriting.
-.Pp
-When a file containing large blocks of zero-valued bytes is copied,
-.Nm
-will attempt to create a sparse file.
-.Pp
-Symbolic links are always followed unless the
-.Fl R
-flag is set, in which case symbolic links are not followed, by default.
-The
-.Fl H
-or
-.Fl L
-flags (in conjunction with the
-.Fl R
-flag) cause symbolic links to be followed as described above.
-The
-.Fl H ,
-.Fl L ,
-and
-.Fl P
-options are ignored unless the
-.Fl R
-option is specified.
-In addition, these options override each other and the
-command's actions are determined by the last one specified.
 .Sh EXIT STATUS
 .Ex -std cp
 .Sh EXAMPLES
