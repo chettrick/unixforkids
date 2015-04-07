@@ -22,8 +22,7 @@
 .Nd command language interpreter
 .Sh SYNOPSIS
 .Nm sh
-.Op Fl abCefhimnuvx
-.Op Fl o Ar option
+.Op Fl bCfn
 .Op Fl c Ar string | Fl s | Ar file
 .Sh DESCRIPTION
 The
@@ -37,19 +36,6 @@ Its chief uses are in interfacing between the user and the operating system,
 reading commands on the command line,
 and in chaining together groups of commands in a very flexible manner,
 through a shell script.
-.Pp
-This version of
-.Nm
-is actually
-.Nm ksh
-in disguise.
-As such, it will also accept options documented in
-.Xr ksh 1 .
-This manual page describes only features
-relevant to a POSIX compliant
-.Nm .
-If portability is a concern,
-use only those features described in this page.
 .Pp
 The shell receives input as follows:
 .Pp
@@ -73,24 +59,7 @@ meaning to unset the option.
 They can also be set or unset using the
 .Ic set
 command.
-Some options have equivalent long names,
-where indicated,
-which can be used with the
-.Fl o
-option.
 .Bl -tag -width Ds
-.It Fl a
-allexport.
-Variable assignments are exported to all child processes
-of the running shell.
-If the assignment precedes a command it does not persist
-after that command has finished running,
-unless the command is a special builtin
-or one of the builtins
-.Ic getopts
-or
-.Ic read
-makes the assignment.
 .It Fl b
 notify.
 The user is given notice asynchronously when background jobs complete.
@@ -99,90 +68,14 @@ noclobber.
 Do not permit the redirection operator
 .Pq Sq >
 to clobber (overwrite) existing files.
-.It Fl e
-errexit.
-Exit the shell immediately should an error occur or a command fail.
-For pipelines and
-.Cm &&
-and
-.Cm ||
-constructs, only exit if the last component fails.
-Errexit is ignored for
-.Ic while ,
-.Ic until ,
-.Ic if ,
-and
-.Ic elif
-lists and pipelines beginning
-.Sq !\& .
 .It Fl f
 noglob.
 Do not expand file name patterns.
-.It Fl h
-When a utility is first executed,
-hash (record) its location
-so that future invocations do not need to search for it.
-Builtins are not hashed, regardless of whether this option is set or not.
-This option is set by default for non-interactive shells.
-.It Fl i
-Enable behaviour convenient for an interactive shell.
-This option is set by default
-if the session is attached to a terminal.
-.It Fl m
-monitor.
-Fully enable job control:
-enable the
-.Ic bg
-and
-.Ic fg
-builtins;
-report completion status when jobs finish;
-report when a foreground process stops;
-and report when a job changes status.
-The processes of a job share their own process group.
-This option is set by default for interactive shells.
 .It Fl n
 noexec.
 Read commands but do not execute them \(en
 useful for checking syntax errors in scripts.
 This option is ignored for interactive shells.
-.It Fl o Ar option
-Specify an option by its long name.
-Those described below have no equivalent option letter:
-.Pp
-.Bl -tag -width "ignoreeof" -offset 3n -compact
-.It ignoreeof
-Ignore an end-of-file
-.Pq Sq ^D .
-EOF normally logs a user out,
-so setting this can prevent accidental logouts
-(the user will need to explicitly use the
-.Ic exit
-command).
-.It nolog
-Do not enter function definitions into command history.
-.It vi
-Enable
-.Xr vi 1
-command line editing.
-.El
-.It Fl u
-nounset.
-If a command references an unset parameter,
-write an error to standard output instead of executing the command.
-This option is ignored for the special parameters
-.Sq *
-and
-.Sq @ .
-If the shell is not interactive,
-immediately exit.
-.It Fl v
-verbose.
-Write input to standard error after reading it.
-.It Fl x
-xtrace.
-Write a trace for each command to standard error after expanding it,
-and before executing it.
 .El
 .Sh BUILTINS
 The shell has a number of
@@ -268,7 +161,7 @@ or
 loop,
 or from loop level
 .Ar n .
-.It Ic cd Oo Fl L | P Oc Op Ar dir
+.It Ic cd Op Ar dir
 Change the current working directory to
 .Ar dir ,
 or
@@ -280,26 +173,6 @@ is set to
 .Sq - ,
 change to the previous working directory and
 print the (now current) working directory.
-If
-.Ar dir
-does not begin with a slash or dot,
-.Ev CDPATH
-is searched for the directory.
-.Pp
-The options to the
-.Ic cd
-command are as follows:
-.Pp
-.Bl -tag -width Ds -offset 3n -compact
-.It Fl L
-Do not resolve symbolic links before processing
-.Qq ..
-components.
-.It Fl P
-Resolve symbolic links before processing
-.Qq ..
-components.
-.El
 .It Ic command Oo Fl p | V | v Oc Ar command Op Ar arg ...
 Invoke
 .Ar command
@@ -397,70 +270,6 @@ List all exported variables in a manner that can be reinput to the shell.
 .El
 .It Ic false
 Return a false (non-zero) value.
-.It Xo
-.Ic fc
-.Op Fl lnr
-.Op Fl e Ar editor
-.Op Fl s Op Ar old Ns = Ns Ar new
-.Op Ar first Op Ar last
-.Xc
-Edit commands from command history using
-.Xr ed 1 .
-After editing,
-the new commands are executed by the shell.
-.Pp
-The options to the
-.Ic fc
-command are as follows:
-.Pp
-.Bl -tag -width "-s [old=new]" -offset 3n -compact
-.It Fl e Ar editor
-Edit commands using
-.Ar editor .
-See also
-.Ev FCEDIT .
-.It Fl l
-List the command history.
-.It Fl ln
-List the command history without command numbers.
-.It Fl r
-Edit or list
-.Pq Fl lr
-commands in reverse order.
-.It Fl s Op Ar old Ns = Ns Ar new
-Reexecute a single command
-without invoking an editor.
-The first occurrence of the string
-.Ar old
-in the command is replaced by
-.Ar new .
-.El
-.Pp
-A range of commands can be specified,
-.Ar first
-to
-.Ar last .
-Their format can be numerical,
-to select by command number;
-.Sq - Ns Ar n ,
-to select a command executed that number of commands previous;
-or a string which matches the beginning of the command.
-If no range is given,
-the last command in command history is edited,
-or reexecuted
-.Pq Fl s ,
-or the previous 16 commands in command history are listed
-.Pq Fl l .
-If
-.Ar first
-is newer than
-.Ar last ,
-commands are processed in reverse order
-(as if
-.Fl r
-had been given);
-if either are out of range,
-the oldest or newest values are used.
 .It Ic fg Op Ar id ...
 Select a job by
 .Ar id
@@ -610,27 +419,8 @@ Real-time timer expired.
 .Dv SIGTERM :
 Software termination signal.
 .El
-.It Ic pwd Op Fl L | P
+.It Ic pwd
 Print the current working directory.
-.Pp
-The options to the
-.Ic pwd
-command are as follows:
-.Pp
-.Bl -tag -width Ds -offset 3n -compact
-.It Fl L
-Print the logical path to the current working directory
-i.e. display symbolic links followed.
-.It Fl P
-Print the physical path to the current working directory
-i.e. display symbolic links resolved.
-.El
-.Pp
-If both options are given,
-the last specified is used;
-if none are given,
-the default is
-.Fl L .
 .It Ic read Oo Fl r Oc Ar name ...
 Read a line from standard input.
 The line is split into fields,
@@ -730,46 +520,8 @@ If
 .Ar n
 is 0,
 no change occurs.
-.It Ic times
-Display accumulated process times for the shell (user and system)
-and all child processes (user and system).
 .It Ic true
 Return a true (zero) value.
-.It Ic trap Op Ar action signal ...
-Perform
-.Ar action
-whenever
-.Ar signal
-is caught.
-Without arguments,
-display a list of all traps and actions,
-in a format suitable to be reinput to the shell.
-.Pp
-If
-.Ar action
-is
-.Sq -
-or an integer,
-reset
-.Ar signal
-to its default value;
-if it is null
-.Pq Qq ,
-ignore
-.Ar signal .
-If
-.Ar signal
-is
-.Qq EXIT
-or 0,
-perform
-.Ar action
-when the shell exits;
-otherwise
-.Ar signal
-should be a signal name
-(without the SIG prefix)
-or number.
 .It Ic umask Oo Fl S Oc Op Ar mask
 Set the file mode creation mask to
 .Ar mask .
