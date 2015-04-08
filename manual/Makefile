@@ -23,5 +23,10 @@ ps: ${SRCS}
 	mandoc -Opaper=${PGSIZE} -Tps -Ios=${BOOK} ${.CURDIR}/${x} > ${x}.ps
 .endfor
 
+lint: ${SRCS}
+.for x in ${SRCS}
+	mandoc -Tlint ${.CURDIR}/${x}
+.endfor
+
 clean:
 	rm *.ps *.pdf
