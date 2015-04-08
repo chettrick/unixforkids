@@ -37,7 +37,7 @@
 .Nd display first few lines of files
 .Sh SYNOPSIS
 .Nm head
-.Op Fl Ns Ar count | Fl n Ar count
+.Op Fl n Ar count
 .Op Ar
 .Sh DESCRIPTION
 The
@@ -56,35 +56,20 @@ is omitted, it defaults to 10.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
-.It Fl Ns Ar count | Fl n Ar count
+.It Fl n Ar count
 Copy the first
 .Ar count
 lines of each input file to the standard output.
 .Ar count
 must be a positive decimal integer.
 .El
-.Pp
-If more than one file is specified,
-.Nm
-precedes the output of each file with the following, in order to distinguish
-the head of each file:
-.Pp
-.Dl ==> Ar file No <==
 .Sh EXIT STATUS
 .Ex -std head
 .Sh EXAMPLES
-To display the first 500 lines of the file
+Display the first 500 lines of the file
 .Ar foo :
 .Pp
 .Dl $ head -n 500 foo
-.Pp
-.Nm
-can be used in conjunction with
-.Xr tail 1
-in the following way to, for example, display only line 500 from the file
-.Ar foo :
-.Pp
-.Dl $ head -n 500 foo | tail -1
 .Sh SEE ALSO
 .Xr cat 1 ,
 .Xr cut 1 ,
