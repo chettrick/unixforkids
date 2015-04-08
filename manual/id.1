@@ -40,19 +40,14 @@
 .Nm id
 .Nd return user identity
 .Sh SYNOPSIS
-.Nm id
+.Nm
 .Op Ar user
-.Nm id
+.Nm
 .Fl G Op Fl n
 .Op Ar user
-.Nm id
-.Fl g Op Fl nr
-.Op Ar user
-.Nm id
-.Fl p
-.Op Ar user
-.Nm id
-.Fl u Op Fl nr
+.Nm
+.Fl g | u
+.Op Fl nr
 .Op Ar user
 .Sh DESCRIPTION
 The
@@ -84,27 +79,6 @@ and
 options instead of the number.
 If any of the ID numbers cannot be mapped into names, the number will be
 displayed as usual.
-.It Fl p
-Make the output human-readable.
-If the user name returned by
-.Xr getlogin 2
-is different from the login name referenced by the user ID, the name
-returned by
-.Xr getlogin 2
-is displayed, preceded by the keyword
-.Dq login .
-The user ID as a name is displayed, preceded by the keyword
-.Dq uid .
-If the effective user ID is different from the real user ID, the real user
-ID is displayed as a name, preceded by the keyword
-.Dq euid .
-If the effective group ID is different from the real group ID, the real group
-ID is displayed as a name, preceded by the keyword
-.Dq rgid .
-The list of groups to which the user belongs is then displayed as names,
-preceded by the keyword
-.Dq groups .
-Each display is on a separate line.
 .It Fl r
 Display the real ID for the
 .Fl g
@@ -117,7 +91,9 @@ Display the effective user ID as a number.
 .Sh EXIT STATUS
 .Ex -std id
 .Sh SEE ALSO
-.Xr who 1
+.Xr groups 1 ,
+.Xr who 1 ,
+.Xr whoami 1
 .Sh HISTORY
 The
 historic
