@@ -33,7 +33,7 @@
 .Os
 .Sh NAME
 .Nm od
-.Nd octal, decimal, hex, ascii dump
+.Nd octal, decimal, hexadecimal, ascii dump
 .Sh SYNOPSIS
 .Nm od
 .Op Fl bcdosv
@@ -77,10 +77,14 @@ This is the default output style if no other is selected.
 .It Fl c
 .Em One-byte character display .
 Display the input offset in octal, followed by sixteen
-space-separated, three column, space-filled, characters of input data
+space-separated, three column, space-filled, characters of input data,
 per line.
-Control characters are printed as c style escapes, or as three octal digits,
-if no c escape exists for the character.
+Control characters are printed as
+.Sq C
+style escapes, or as three octal digits,
+if no
+.Sq C
+escape exists for the character.
 .It Fl d
 .Em Two-byte unsigned decimal display .
 Display the input offset in octal, followed by eight
@@ -89,7 +93,7 @@ of input data, in unsigned decimal, per line.
 .It Fl h
 .Em Two-byte hexadecimal display .
 Display the input offset in octal, followed by eight space-separated,
-four column, zero filled, two-byte units of input data, in hex,
+four column, zero filled, two-byte units of input data, in hexadecimal,
 per line.
 .It Fl j Ar offset
 Skip
@@ -148,16 +152,18 @@ Without the
 option, any number of groups of output lines, which would be
 identical to the immediately preceding group of output lines (except
 for the input offsets), are replaced with a line comprised of a
-single asterisk.
+single asterisk
+.Pq Ql \&* .
 .El
 .Sh EXIT STATUS
 .Ex -std od
 .Sh EXAMPLES
-Display two-byte hexadecimal output, but skip the first 16 bytes.
+Display two-byte hexadecimal output, but skip the first 16 bytes:
 .Pp
 .Dl $ od -hv -j 16 file
 .Sh SEE ALSO
-.Xr hexdump 1
+.Xr hexdump 1 ,
+.Xr ascii 7
 .Sh HISTORY
 An
 .Nm
