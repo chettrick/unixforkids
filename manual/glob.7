@@ -25,16 +25,12 @@
 Globbing characters
 .Pq wildcards
 are special characters used to perform pattern matching of pathnames and
-command arguments in the
-.Xr csh 1 ,
-.Xr ksh 1 ,
-and
-.Xr sh 1
-shells as well as
-the C library functions
+command arguments in the shell,
+as well as in the C library functions
 .Xr fnmatch 3
 and
 .Xr glob 3 .
+.Pp
 A glob pattern is a word containing one or more unquoted
 .Ql \&?
 or
@@ -45,7 +41,10 @@ sequences.
 .Pp
 Globs should not be confused with the more powerful
 regular expressions used by programs such as
-.Xr grep 1 .
+.Xr awk 1 ,
+.Xr grep 1 ,
+and
+.Xr sed 1 .
 While there is some overlap in the special characters used in regular
 expressions and globs, their meaning is different.
 .Pp
@@ -84,10 +83,9 @@ and
 .Sq :]
 stands for the list of all characters belonging to that class.
 Supported character classes:
-.Bl -column "xdigit" "xdigit" "xdigit" -offset indent
-.It Li "alnum" Ta "cntrl" Ta "lower" Ta "space"
-.It Li "alpha" Ta "digit" Ta "print" Ta "upper"
-.It Li "blank" Ta "graph" Ta "punct" Ta "xdigit"
+.Bl -column "xdigit" "xdigit" "xdigit" "xdigit" "xdigit" -offset indent
+.It Li "alnum" Ta "alpha" Ta "blank" Ta "cntrl" Ta "digit" Ta "graph"
+.It Li "lower" Ta "print" Ta "punct" Ta "space" Ta "upper" Ta "xdigit"
 .El
 .Pp
 These match characters using the macros specified in
@@ -123,15 +121,6 @@ character or by a
 .Dq [..]
 sequence.
 Thus,
-.Pa /usr/*/*/X11
-would match
-.Pa /usr/X11R6/lib/X11
-and
-.Pa /usr/X11R6/include/X11
-while
-.Pa /usr/*/X11
-would not match either.
-Likewise,
 .Pa /usr/*/bin
 would match
 .Pa /usr/local/bin
@@ -144,10 +133,9 @@ but not
 .Sh HISTORY
 In early versions of
 .Ux ,
-the shell did not do pattern expansion itself.
-A dedicated program,
+a dedicated program,
 .Pa /etc/glob ,
-was used to perform the expansion and pass the results to a command.
+was used to perform pattern expansion and pass the results to a command.
 In
 .At v7 ,
 with the introduction of the Bourne shell,
