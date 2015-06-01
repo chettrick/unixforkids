@@ -730,30 +730,3 @@ times.
 .El
 .Sh SEE ALSO
 .Xr regex 3
-.Sh BUGS
-Having two kinds of REs is a botch.
-.Pp
-The current POSIX spec says that
-.Sq )\&
-is an ordinary character in the absence of an unmatched
-.Sq \&( ;
-this was an unintentional result of a wording error,
-and change is likely.
-Avoid relying on it.
-.Pp
-Back-references are a dreadful botch,
-posing major problems for efficient implementations.
-They are also somewhat vaguely defined
-(does
-.Sq a\e(\e(b\e)*\e2\e)*d
-match
-.Sq abbbd ? ) .
-Avoid using them.
-.Pp
-POSIX's specification of case-independent matching is vague.
-The
-.Dq one case implies all cases
-definition given above
-is the current consensus among implementors as to the right interpretation.
-.Pp
-The syntax for word boundaries is incredibly ugly.
