@@ -97,7 +97,7 @@ Use time file's status was last changed instead of last modification
 time for sorting
 .Pq Fl t
 or printing
-.Pf ( Fl g , l ,
+.Pf ( Fl l
 or
 .Fl n ) .
 .It Fl d
@@ -123,10 +123,6 @@ after each that is a FIFO.
 Output is not sorted.
 This option implies
 .Fl a .
-.It Fl g
-List in long format as in
-.Fl l ,
-except that the owner is not printed.
 .It Fl H
 Follow symbolic links specified on the command line.
 This is the default behaviour when none of the
@@ -141,19 +137,6 @@ Petabyte, and Exabyte in order to reduce the number of digits to four or fewer
 using powers of 2 for sizes (K=1024, M=1048576, etc.).
 .It Fl i
 For each file, print its inode number.
-.It Fl k
-Modifies the
-.Fl s
-option, causing the sizes to be reported in kilobytes.
-Overrides any value specified by the
-.Ev BLOCKSIZE
-environment variable.
-.It Fl L
-If argument is a symbolic link, evaluate the file information and file type
-to be those of the file referenced by the link, and not the link itself;
-however,
-.Nm
-writes the name of the link itself and not the file referenced by the link.
 .It Fl l
 (The lowercase letter
 .Dq ell . )
@@ -167,25 +150,6 @@ Stream output format; list files across the page, separated by commas.
 List in long format as in
 .Fl l ,
 but retain user and group IDs in a numeric format.
-The output of
-.Fl gn
-and
-.Fl ng
-is identical:
-a long listing with numerical group ID,
-and no numerical user ID.
-The output of
-.Fl ln
-and
-.Fl \&nl
-is identical:
-a long listing with numerical group and user ID.
-.It Fl o
-Include the file flags in a long format
-.Pf ( Fl g , l ,
-or
-.Fl n )
-output.
 .It Fl p
 Display a slash
 .Pq Sq /
@@ -202,22 +166,6 @@ Reverse the order of the sort to get reverse
 lexicographical order or the smallest or oldest entries first.
 .It Fl S
 Sort by size, largest file first.
-.It Fl s
-Display the number of file system blocks actually used by each file,
-where partial units are rounded up to the next integer value.
-Blocks are 512 bytes unless overridden by the
-.Fl k
-flag or
-.Ev BLOCKSIZE
-environment variable.
-.It Fl T
-Display complete time information for the file, including
-month, day, hour, minute, second, and year.
-This option has no effect unless one of the long format
-.Pf ( Fl g , l ,
-or
-.Fl n )
-options is also specified.
 .It Fl t
 Sort by time modified (most recently modified
 first) before sorting the operands in lexicographical
@@ -228,7 +176,7 @@ instead of last modification time
 for sorting
 .Pq Fl t
 or printing
-.Pf ( Fl g , l ,
+.Pf ( Fl l
 or
 .Fl n ) .
 .It Fl x
@@ -239,7 +187,6 @@ It is not an error to specify more than one of
 the following mutually exclusive options:
 .Fl 1 ,
 .Fl C ,
-.Fl g ,
 .Fl l ,
 .Fl m ,
 .Fl n ,
@@ -269,16 +216,14 @@ and
 .Fl u .
 .Ss The Long Format
 If the
-.Fl g ,
-.Fl l ,
+.Fl l
 or
 .Fl n
 options are given, the following information
 is displayed for each file:
 mode,
 number of links,
-owner (though not for
-.Fl g ) ,
+owner,
 group,
 size in bytes,
 time of last modification
@@ -287,11 +232,7 @@ and the pathname.
 In addition, for each directory whose contents are displayed, the first
 line displayed is the total number of blocks used by the files in the
 directory.
-Blocks are 512 bytes unless overridden by the
-.Fl k
-option or
-.Ev BLOCKSIZE
-environment variable.
+Blocks are 512 bytes.
 .Pp
 If the owner or group name is not a known user or group name, respectively,
 or the
@@ -313,8 +254,7 @@ linked-to file is preceded by
 .Dq \-\*(Gt .
 .Pp
 The file mode printed under the
-.Fl g ,
-.Fl l ,
+.Fl l
 or
 .Fl n
 options consists of the entry type, owner permissions, group permissions,
@@ -400,65 +340,14 @@ or
 .Xr sticky 8 ) .
 .El
 .El
-.Pp
-In addition, if the
-.Fl o
-option is specified, the file flags (see
-.Xr chflags 1 )
-are displayed as comma-separated strings in front of the file size,
-abbreviated as follows:
-.Pp
-.Bl -tag -width 8n -offset indent -compact
-.It \&-
-no flags
-.It arch
-archived
-.It nodump
-do not dump
-.It sappnd
-system append-only
-.It schg
-system immutable
-.It uappnd
-user append-only
-.It uchg
-user immutable
-.El
-.Sh ENVIRONMENT
-.Bl -tag -width BLOCKSIZE
-.It Ev BLOCKSIZE
-If the environment variable
-.Ev BLOCKSIZE
-is set, and the
-.Fl k
-option is not specified, the block counts
-(see
-.Fl s )
-will be displayed in units of that size block.
-.It COLUMNS
-If this variable contains a string representing a
-decimal integer, it is used as the
-column position width for displaying
-multiple-text-column output.
-.It Ev TZ
-The time zone to use when displaying dates.
-See
-.Xr environ 7
-for more information.
-.El
 .Sh EXIT STATUS
 .Ex -std ls
 .Sh EXAMPLES
-List the contents of the current working directory in long format:
-.Pp
-.Dl $ ls -l
-.Pp
-In addition to listing the contents of the current working directory in
-long format, show inode numbers, file flags (see
-.Xr chflags 1 ) ,
+List the contents of the current working directory in
+long format, show inode numbers,
 and suffix each filename with a symbol representing its file type:
 .Pp
-.Dl $ ls -lioF
+.Dl $ ls -liF
 .Pp
 List the files in
 .Pa /var/log ,
