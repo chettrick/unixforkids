@@ -13,15 +13,16 @@ PGSIZE=	a5
 GSOPTS=	-q -dSAFER -dBATCH -dNOPAUSE -dPDFSETTINGS=/prepress
 GSOPTS+=-sDEVICE=pdfwrite -sPAPERSIZE=${PGSIZE}
 
-all: book.pdf
+all: book
 
-book.pdf: ps ${OBJS}
-	gs ${GSOPTS} -sOutputFile=$@ ${OBJS}
+book: ps ${OBJS}
+	gs ${GSOPTS} -sOutputFile="UNIX_for_Kids.pdf" ${OBJS}
 
 ps: ${SRCS}
 .for x in ${SRCS}
 	mandoc -Opaper=${PGSIZE} -Tps -Ios=${BOOK} ${.CURDIR}/${x} > ${x}.ps
 .endfor
+	perl -pi -e 's/ZZZZZZZZ/"Page ".++$$n/ge' ${OBJS}
 
 lint: ${SRCS}
 .for x in ${SRCS}
