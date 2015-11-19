@@ -72,13 +72,7 @@ The options are as follows:
 Display the name of the signal corresponding to
 .Ar exit_status .
 .Ar exit_status
-may be the exit status of a command killed by a signal
-(see the
-special
-.Xr sh 1
-parameter
-.Sq ?\& )
-or a signal number.
+may be the exit status of a command killed by a signal or a signal number.
 .Pp
 If no operand is given, display the names of all the signals.
 .It Fl s Ar signal_name
@@ -132,7 +126,7 @@ manual page.
 .Pp
 A signal number of 0
 .Pq Li kill \-0 pid
-checks the validity of a certain PID, to see if it exists.
+checks the validity of PID, to see if it exists.
 An exit code of 0 means that the specified process exists.
 .Sh EXIT STATUS
 .Ex -std kill
